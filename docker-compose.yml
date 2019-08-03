@@ -1,0 +1,25 @@
+version: "3"
+services:
+  api:
+    build: ./api
+    volumes:
+      - ./api:/app
+    environment:
+      SLEEP_LENGTH: 5
+      POSTGRES_HOST: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+    ports:
+      - 8080:8080
+    depends_on:
+      - "db"
+    entrypoint: bash
+    stdin_open: true
+    tty: true
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
